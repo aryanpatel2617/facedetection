@@ -1,39 +1,13 @@
 """
 Face Recognition - Terminal Version
-Opens webcam, recognizes faces, logs attendance.
+Opens webcam and recognizes faces in real-time.
 """
 import os
 import pickle
 import cv2
 import face_recognition
 import numpy as np
-import pandas as pd
-from datetime import datetime
 import time
-
-
-def mark_attendance(name, csv_path):
-    """Mark attendance for a recognized person (once per day)."""
-    now = datetime.now()
-    date_str = now.strftime('%Y-%m-%d')
-    time_str = now.strftime('%H:%M:%S')
-
-    try:
-        os.makedirs(os.path.dirname(csv_path), exist_ok=True)
-        if not os.path.exists(csv_path):
-            df = pd.DataFrame(columns=["Name", "Date", "Time"])
-            df.to_csv(csv_path, index=False)
-
-        df = pd.read_csv(csv_path)
-
-        today_records = df[(df['Name'] == name) & (df['Date'] == date_str)]
-
-        if today_records.empty:
-            new_record = pd.DataFrame({"Name": [name], "Date": [date_str], "Time": [time_str]})
-            new_record.to_csv(csv_path, mode='a', header=False, index=False)
-            print(f"  [OK] Attendance logged: {name} at {time_str}")
-    except Exception as e:
-        print(f"  [ERROR] Error logging attendance: {e}")
 
 
 def recognize_faces():
@@ -74,8 +48,6 @@ def recognize_faces():
         print("  [ERROR] Webcam not found!")
         return
 
-    attendance_path = os.path.join("attendance", "attendance.csv")
-
     process_this_frame = True
     face_locations = []
     face_encodings_list = []
@@ -110,7 +82,6 @@ def recognize_faces():
                         name = known_names[best_match_index]
                         confidence = face_distances[best_match_index]
                         confidence_percent = round((1.0 - confidence) * 100, 2)
-                        mark_attendance(name, attendance_path)
 
                 face_names.append(name)
                 confidences.append(confidence_percent)

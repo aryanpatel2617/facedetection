@@ -16,20 +16,14 @@ sys.stdout.reconfigure(line_buffering=True)
 def init_csv_files():
     """Create required folders and CSV files if they don't exist."""
     os.makedirs("users", exist_ok=True)
-    os.makedirs("attendance", exist_ok=True)
     os.makedirs("dataset", exist_ok=True)
     os.makedirs("models", exist_ok=True)
 
     users_path = os.path.join("users", "users.csv")
-    attendance_path = os.path.join("attendance", "attendance.csv")
 
     if not os.path.exists(users_path):
         with open(users_path, 'w') as f:
             f.write("ID,Name,Department,Age\n")
-
-    if not os.path.exists(attendance_path):
-        with open(attendance_path, 'w') as f:
-            f.write("Name,Date,Time\n")
 
 
 def clear_screen():
@@ -44,7 +38,7 @@ def login():
     print("=" * 55)
     print("   +-------------------------------------------+")
     print("   |       FACE RECOGNITION SYSTEM             |")
-    print("   |       Attendance Management                |")
+    print("   |       Face Recognition System              |")
     print("   +-------------------------------------------+")
     print("=" * 55)
     print()
@@ -83,13 +77,12 @@ def show_dashboard():
         print("   2.  Capture Faces")
         print("   3.  Train Model")
         print("   4.  Recognize Faces (Camera)")
-        print("   5.  Attendance History")
-        print("   6.  Manage Users")
-        print("   7.  Evaluate Model (Metrics)")
+        print("   5.  Manage Users")
+        print("   6.  Evaluate Model (Metrics)")
         print("   0.  Logout & Exit")
         print()
 
-        choice = input("   Enter choice (0-7): ").strip()
+        choice = input("   Enter choice (0-6): ").strip()
 
         if choice == "1":
             from register_terminal import register_user
@@ -112,14 +105,10 @@ def show_dashboard():
             input("\n  Press Enter to continue...")
 
         elif choice == "5":
-            from attendance_terminal import attendance_menu
-            attendance_menu()
-
-        elif choice == "6":
             from manage_users_terminal import manage_users_menu
             manage_users_menu()
 
-        elif choice == "7":
+        elif choice == "6":
             from evaluate_terminal import evaluate_model
             evaluate_model()
             input("\n  Press Enter to continue...")
@@ -129,7 +118,7 @@ def show_dashboard():
             break
 
         else:
-            print("\n   [FAIL] Invalid choice. Please enter 0-7.")
+            print("\n   [FAIL] Invalid choice. Please enter 0-6.")
 
 
 def main():

@@ -183,8 +183,8 @@ def evaluate_model():
 def _export_report(labels, precision, recall, f1, support, cm,
                    accuracy, macro_prec, macro_rec, macro_f1, total_samples, total_persons):
     """Export evaluation report to CSV."""
-    os.makedirs("attendance", exist_ok=True)
-    filepath = os.path.join("attendance", f"evaluation_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv")
+    os.makedirs("models", exist_ok=True)
+    filepath = os.path.join("models", f"evaluation_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv")
 
     try:
         with open(filepath, 'w', newline='', encoding='utf-8') as f:
