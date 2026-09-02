@@ -3,7 +3,7 @@ Capture Faces - Terminal Version
 Upload images or capture from webcam.
 """
 import os
-import shutil
+
 import numpy as np
 import cv2
 import pandas as pd
